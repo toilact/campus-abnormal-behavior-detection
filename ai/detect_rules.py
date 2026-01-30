@@ -39,7 +39,8 @@ RESTRICTED_ROI_POINTS = [(560, 120), (840, 120), (840, 420), (560, 420)]
 # Helpers
 # -----------------------------
 def draw_polygon(img, pts, color=(0, 255, 255), thickness=2):
-    cv2.polylines(img, [cv2.UMat(cv2.convexHull(cv2.UMat(pts)).get())], True, color, thickness)
+    pts_np = np.array(pts, dtype=np.int32).reshape((-1, 1, 2))
+    cv2.polylines(img, [pts_np], True, color, thickness)
 
 def poly_from_points(points: List[Tuple[int, int]]) -> Polygon:
     return Polygon(points)
