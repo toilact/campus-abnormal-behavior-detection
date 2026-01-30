@@ -127,8 +127,10 @@ def main():
 
         # Draw
         # Draw ROIs
-        cv2.polylines(frame, [cv2.UMat(cv2.convexHull(cv2.UMat(CROWD_ROI_POINTS)).get())], True, (0, 255, 255), 2)
-        cv2.polylines(frame, [cv2.UMat(cv2.convexHull(cv2.UMat(RESTRICTED_ROI_POINTS)).get())], True, (0, 0, 255), 2)
+        crowd_pts = np.array(CROWD_ROI_POINTS, dtype=np.int32).reshape((-1, 1, 2))
+        rest_pts  = np.array(RESTRICTED_ROI_POINTS, dtype=np.int32).reshape((-1, 1, 2))
+        cv2.polylines(frame, [crowd_pts], True, (0, 255, 255), 2)
+        cv2.polylines(frame, [rest_pts], True, (0, 0, 255), 2)
 
         # Draw boxes
         for (x1, y1, x2, y2) in people_boxes:
